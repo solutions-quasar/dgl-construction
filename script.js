@@ -1,19 +1,86 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Scroll Reveal Animation
-    const reveals = document.querySelectorAll('.reveal');
-    const revealOnScroll = () => {
-        reveals.forEach(reveal => {
-            const windowHeight = window.innerHeight;
-            const revealTop = reveal.getBoundingClientRect().top;
-            const revealPoint = 150;
-
-            if (revealTop < windowHeight - revealPoint) {
-                reveal.add('active');
-            }
-        });
+    // Translations Object
+    const translations = {
+        en: {
+            nav_home: "Home",
+            nav_services: "Services",
+            nav_projects: "Projects",
+            nav_contact: "Contact",
+            hero_title: "Building Excellence in <span>Cap-Pelé</span>",
+            hero_desc: "Premium craftsmanship for your home and business. From custom decks to commercial warehouses, we bring your vision to life.",
+            hero_btn_work: "View Our Work",
+            hero_btn_services: "Our Services",
+            services_title: "Our Services",
+            services_subtitle: "Comprehensive construction solutions tailored to your needs.",
+            service_1_title: "General Construction",
+            service_1_desc: "Complete building solutions from foundation to finish.",
+            service_2_title: "Custom Decks",
+            service_2_desc: "Beautiful, durable outdoor living spaces designed for your lifestyle.",
+            service_3_title: "Garages & Skirting",
+            service_3_desc: "Practical expansions and structural refinements for your property.",
+            service_4_title: "Kitchen & Bathroom",
+            service_4_desc: "Modern renovations that add value and elegance to your home.",
+            service_5_title: "Commercial Warehouses",
+            service_5_desc: "Large-scale construction built for efficiency and durability.",
+            service_6_title: "And More",
+            service_6_desc: "Whatever your project needs, we have the expertise to deliver.",
+            portfolio_title: "Our Portfolio",
+            portfolio_subtitle: "A glimpse into our recent craftsmanship and builds.",
+            contact_title: "Ready to start your project?",
+            contact_subtitle: "Contact Daniel G. Leger today for a consultation and estimate.",
+            label_phone: "Phone",
+            label_location: "Location",
+            location_val: "Cap-Pelé, NB",
+            cta_title: "Let's Build Together",
+            cta_desc: "We pride ourselves on quality and reliability.",
+            cta_btn: "Call 506-531-7550",
+            footer_copy: "&copy; 2026 D.G.L Construction. All rights reserved.",
+            bottom_nav_menu: "MENU",
+            bottom_nav_call: "CALL",
+            bottom_nav_email: "EMAIL"
+        },
+        fr: {
+            nav_home: "Accueil",
+            nav_services: "Services",
+            nav_projects: "Réalisations",
+            nav_contact: "Contact",
+            hero_title: "Excellence en Construction à <span>Cap-Pelé</span>",
+            hero_desc: "Savoir-faire de qualité pour votre maison et votre entreprise. Des terrasses personnalisées aux entrepôts commerciaux, nous donnons vie à votre vision.",
+            hero_btn_work: "Voir nos réalisations",
+            hero_btn_services: "Nos services",
+            services_title: "Nos Services",
+            services_subtitle: "Des solutions de construction complètes adaptées à vos besoins.",
+            service_1_title: "Construction Générale",
+            service_1_desc: "Solutions de construction complètes, de la fondation à la finition.",
+            service_2_title: "Terrasses sur mesure",
+            service_2_desc: "Espaces de vie extérieurs magnifiques et durables conçus pour votre style de vie.",
+            service_3_title: "Garages et Finitions",
+            service_3_desc: "Agrandissements pratiques et raffinements structurels pour votre propriété.",
+            service_4_title: "Cuisine et Salle de bain",
+            service_4_desc: "Rénovations modernes qui ajoutent de la valeur et de l'élégance à votre maison.",
+            service_5_title: "Entrepôts Commerciaux",
+            service_5_desc: "Construction à grande échelle conçue pour l'efficacité et la durabilité.",
+            service_6_title: "Et plus encore",
+            service_6_desc: "Quel que soit votre projet, nous avons l'expertise pour le réaliser.",
+            portfolio_title: "Notre Portfolio",
+            portfolio_subtitle: "Un aperçu de notre savoir-faire et de nos constructions récentes.",
+            contact_title: "Prêt à commencer votre projet ?",
+            contact_subtitle: "Contactez Daniel G. Leger dès aujourd'hui pour une consultation et une estimation.",
+            label_phone: "Téléphone",
+            label_location: "Emplacement",
+            location_val: "Cap-Pelé, NB",
+            cta_title: "Bâtissons Ensemble",
+            cta_desc: "Nous sommes fiers de notre qualité et de notre fiabilité.",
+            cta_btn: "Appelez le 506-531-7550",
+            footer_copy: "&copy; 2026 D.G.L Construction. Tous droits réservés.",
+            bottom_nav_menu: "MENU",
+            bottom_nav_call: "APPELER",
+            bottom_nav_email: "COURRIEL"
+        }
     };
 
-    // Correcting a small logical error in the check
+    // Scroll Reveal Animation
+    const reveals = document.querySelectorAll('.reveal');
     const observerOptions = {
         threshold: 0.1
     };
@@ -30,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(reveal);
     });
 
-    // Gallery Dynamic Loading (Simulated for now with provided images)
+    // Gallery Dynamic Loading
     const galleryGrid = document.getElementById('gallery-grid');
     const projectImages = [
         '475165562_122204191796245484_6213852786478120702_n.jpg',
@@ -62,38 +129,101 @@ document.addEventListener('DOMContentLoaded', () => {
         '624232492_122282387426245484_8801594742813172050_n.jpg'
     ];
 
-    projectImages.forEach(img => {
-        const item = document.createElement('div');
-        item.className = 'gallery-item reveal';
-        item.innerHTML = `<img src="images/${img}" alt="D.G.L Construction Project" loading="lazy">`;
+    if (galleryGrid) {
+        projectImages.forEach(img => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item reveal';
+            item.innerHTML = `<img src="images/${img}" alt="D.G.L Construction Project" loading="lazy">`;
 
-        // Simple Lightbox
-        item.addEventListener('click', () => {
-            const lb = document.createElement('div');
-            lb.className = 'lightbox';
-            lb.innerHTML = `<img src="images/${img}" alt="Enlarged View"><div class="close-lb">&times;</div>`;
-            document.body.appendChild(lb);
-            setTimeout(() => lb.classList.add('active'), 10);
+            item.addEventListener('click', () => {
+                const lb = document.createElement('div');
+                lb.className = 'lightbox';
+                lb.innerHTML = `<img src="images/${img}" alt="Enlarged View"><div class="close-lb">&times;</div>`;
+                document.body.appendChild(lb);
+                setTimeout(() => lb.classList.add('active'), 10);
 
-            lb.addEventListener('click', () => {
-                lb.classList.remove('active');
-                setTimeout(() => lb.remove(), 500);
+                lb.addEventListener('click', () => {
+                    lb.classList.remove('active');
+                    setTimeout(() => lb.remove(), 500);
+                });
             });
-        });
 
-        galleryGrid.appendChild(item);
-        observer.observe(item);
+            galleryGrid.appendChild(item);
+            observer.observe(item);
+        });
+    }
+
+    // Mobile Menu Toggle
+    const burger = document.getElementById('burger');
+    const menuToggleBtn = document.getElementById('menu-toggle-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+    const toggleMenu = () => {
+        burger.classList.toggle('toggle');
+        mobileMenu.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+    };
+
+    if (burger) burger.addEventListener('click', toggleMenu);
+    if (menuToggleBtn) menuToggleBtn.addEventListener('click', toggleMenu);
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
     });
 
     // Header Scroll Effect
     const header = document.querySelector('.header');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            header.style.padding = '10px 0';
-            header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            header.classList.add('scrolled');
         } else {
-            header.style.padding = '0';
-            header.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            header.classList.remove('scrolled');
         }
     });
+
+    // Language Switcher Functionality
+    const langBtns = document.querySelectorAll('.lang-btn');
+
+    const translatePage = (lang) => {
+        const elements = document.querySelectorAll('[data-t]');
+        elements.forEach(el => {
+            const key = el.getAttribute('data-t');
+            if (translations[lang] && translations[lang][key]) {
+                el.innerHTML = translations[lang][key];
+            }
+        });
+
+        // Update document title if meta_title exists
+        if (translations[lang] && translations[lang].meta_title) {
+            document.title = translations[lang].nav_home === "Accueil" ?
+                `D.G.L Construction | Construction d'Excellence à Cap-Pelé, NB` :
+                `D.G.L Construction | Premium General Construction in Cap-Pelé, NB`;
+        }
+
+        document.documentElement.lang = lang;
+        localStorage.setItem('dgl_lang', lang);
+    };
+
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            langBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            translatePage(lang);
+        });
+    });
+
+    // Set initial language
+    const savedLang = localStorage.getItem('dgl_lang') || 'en';
+    const activeBtn = document.querySelector(`.lang-btn[data-lang="${savedLang}"]`);
+    if (activeBtn) {
+        langBtns.forEach(b => b.classList.remove('active'));
+        activeBtn.classList.add('active');
+        translatePage(savedLang);
+    }
 });
