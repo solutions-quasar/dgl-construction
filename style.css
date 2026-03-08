@@ -503,6 +503,17 @@ h3 {
 
 #load-more-btn {
     padding: 1rem 3.5rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border: 2px solid var(--primary);
+    box-shadow: 0 4px 15px rgba(249, 115, 22, 0.2);
+}
+
+#load-more-btn:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
 }
 
 /* Mobile adjustments for masonry */
