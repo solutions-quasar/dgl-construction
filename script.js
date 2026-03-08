@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cta_title: "Let's Build Together",
             cta_desc: "We pride ourselves on quality and reliability.",
             cta_btn: "Call 506-531-7550",
+            btn_see_more: "See More",
             footer_copy: "&copy; 2026 D.G.L Construction. All rights reserved.",
             bottom_nav_menu: "MENU",
             bottom_nav_call: "CALL",
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cta_title: "Bâtissons Ensemble",
             cta_desc: "Nous sommes fiers de notre qualité et de notre fiabilité.",
             cta_btn: "Appelez le 506-531-7550",
+            btn_see_more: "Voir plus",
             footer_copy: "&copy; 2026 D.G.L Construction. Tous droits réservés.",
             bottom_nav_menu: "MENU",
             bottom_nav_call: "APPELER",
@@ -99,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Gallery Dynamic Loading
     const galleryGrid = document.getElementById('gallery-grid');
+    const loadMoreBtn = document.getElementById('load-more-btn');
     const projectImages = [
         '475165562_122204191796245484_6213852786478120702_n.jpg',
         '475248309_122204191562245484_5233948028689497339_n.jpg',
@@ -129,8 +132,11 @@ document.addEventListener('DOMContentLoaded', () => {
         '624232492_122282387426245484_8801594742813172050_n.jpg'
     ];
 
-    if (galleryGrid) {
-        projectImages.forEach(img => {
+    let itemsShown = 6;
+
+    const renderImages = (start, end) => {
+        const imagesToRender = projectImages.slice(start, end);
+        imagesToRender.forEach(img => {
             const item = document.createElement('div');
             item.className = 'gallery-item reveal';
             item.innerHTML = `<img src="images/${img}" alt="D.G.L Construction Project" loading="lazy">`;
@@ -151,6 +157,18 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryGrid.appendChild(item);
             observer.observe(item);
         });
+    };
+
+    if (galleryGrid) {
+        renderImages(0, itemsShown);
+
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', () => {
+                renderImages(itemsShown, projectImages.length);
+                loadMoreBtn.style.display = 'none';
+                itemsShown = projectImages.length;
+            });
+        }
     }
 
     // Mobile Menu Toggle
